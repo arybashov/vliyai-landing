@@ -103,12 +103,13 @@ h1 { font-size: clamp(2.8rem, 4.55vw, 4.05rem); line-height: 1.02; margin-bottom
 .flow-trust { --flow-angle: 205deg; --flow-inset: 0 -12px 5%; --flow-shape: 50% 25% 20% 60% / 20% 60% 45% 25%; }
 /* Paint crisp dots above the blurred backdrop, beneath the original tint and
    highlight. A gradient tint keeps the same opacity while covering the dots. */
-.glass { position: relative; background: radial-gradient(ellipse at 5% 0%,rgba(255,255,255,.52),transparent 58%), linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,.3)), var(--dot-texture); border: 1px solid rgba(255,255,255,.88); border-radius: 28px; box-shadow: inset 0 2px 1px rgba(255,255,255,.84), inset 1px 0 1px rgba(255,255,255,.6), inset -1px -2px 3px rgba(53,109,119,.13), 0 14px 32px rgba(45,78,71,.09); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px) saturate(135%); }
+.glass { --glass-radius: 28px; position: relative; background: radial-gradient(ellipse at 5% 0%,rgba(255,255,255,.52),transparent 58%), linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,.3)), var(--dot-texture); border: 2px solid #fff; border-radius: var(--glass-radius); box-shadow: inset 0 2px 1px rgba(255,255,255,.84), inset 1px 0 1px rgba(255,255,255,.6), 0 14px 32px rgba(45,78,71,.09); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px) saturate(135%); }
+.glass::after { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(112,155,158,.28); border-radius: calc(var(--glass-radius) - 2px); pointer-events: none; }
 .glass p, .glass dd { color: #3c514a; }
-.glass-dark { background: linear-gradient(rgba(22,25,28,.84),rgba(22,25,28,.84)), var(--dot-texture); color: var(--paper); border-color: rgba(255,255,255,.64); box-shadow: inset 0 1px 1px rgba(255,255,255,.22), 0 17px 34px rgba(22,25,28,.14); }
+.glass-dark { background: linear-gradient(rgba(22,25,28,.84),rgba(22,25,28,.84)), var(--dot-texture); color: var(--paper); border-color: #fff; box-shadow: inset 0 1px 1px rgba(255,255,255,.22), 0 17px 34px rgba(22,25,28,.14); }
 .glass-dark p, .glass-dark .card-label { color: #dce5da; }
 .glass-dark strong { color: var(--acid); }
-.glass-dark .glass { background: linear-gradient(rgba(255,255,255,.07),rgba(255,255,255,.07)), var(--dot-texture); border-color: rgba(255,255,255,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.18); }
+.glass-dark .glass { background: linear-gradient(rgba(255,255,255,.07),rgba(255,255,255,.07)), var(--dot-texture); box-shadow: inset 0 1px 0 rgba(255,255,255,.18); }
 .glass-dark .glass p, .glass-dark p.glass { color: var(--paper); }
 .number { flex-shrink: 0; display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--mint); color: var(--ink); font-size: 1.125rem; font-weight: 700; }
 :nth-child(3n+2) > .number { background: var(--sky); }
@@ -134,11 +135,11 @@ h1 { font-size: clamp(2.8rem, 4.55vw, 4.05rem); line-height: 1.02; margin-bottom
 .column-label { margin-bottom: 18px; }
 .comparison-column:nth-child(2) .column-label { color: #216244; }
 .comparison-list { display: grid; gap: 14px; }
-.comparison-card { padding: 22px 26px; min-height: 108px; border-radius: 21px; }
+.comparison-card { padding: 22px 26px; min-height: 108px; --glass-radius: 21px; }
 .comparison-card dt { font-family: var(--display); font-size: 1.35rem; line-height: 1.25; font-weight: 600; letter-spacing: -.02em; }
 .comparison-card dd { font-size: 1rem; line-height: 1.5; margin-top: 6px; }
-.comparison-result { padding: 22px 26px; margin-top: 18px; border-radius: 21px; font-weight: 600; }
-.result-after { color: #183b27; border-color: rgba(57,152,107,.5); }
+.comparison-result { padding: 22px 26px; margin-top: 18px; --glass-radius: 21px; font-weight: 600; }
+.result-after { color: #183b27; }
 .application-card { padding: 30px 25px; display: flex; flex-direction: column; min-height: 350px; }
 .application-card h3 { font-size: 1.45rem; min-height: 2.4em; }
 .application-card p { margin-top: 20px; }
@@ -151,7 +152,7 @@ h1 { font-size: clamp(2.8rem, 4.55vw, 4.05rem); line-height: 1.02; margin-bottom
 .network-note { padding-top: 24px; border-top: 1px solid rgba(22,25,28,.13); }
 .platforms { margin-bottom: 30px; }
 .platforms li { font-size: 1rem; font-weight: 600; }
-.network-metric { margin-top: auto; padding: 25px; border-radius: 22px; }
+.network-metric { margin-top: auto; padding: 25px; --glass-radius: 22px; }
 .network-card > p + .network-metric { margin-top: 30px; }
 .network-metric strong { display: block; font: 600 clamp(1.4rem,2.8vw,2.1rem)/1.2 var(--display); letter-spacing: -.035em; }
 .network-metric span { display: block; margin-top: 8px; }
@@ -162,7 +163,7 @@ h1 { font-size: clamp(2.8rem, 4.55vw, 4.05rem); line-height: 1.02; margin-bottom
 .reach-card .reach-number { font: 700 clamp(4rem,8.4vw,7.5rem)/1.1 var(--display); letter-spacing: -.065em; color: var(--ink); margin: 18px 0 24px; }
 .reach-card.glass-dark .reach-number { color: var(--acid); }
 .reach-card > p:not(.reach-number):not(.publication-count) { max-width: 34ch; font-size: 1.125rem; margin-bottom: 30px; }
-.publication-count { margin-top: auto; padding: 20px 24px; border-radius: 18px; }
+.publication-count { margin-top: auto; padding: 20px 24px; --glass-radius: 18px; }
 .publication-count strong { font-size: 1.3rem; font-weight: 700; white-space: nowrap; }
 .launch-card { display: grid; grid-template-columns: 46px 1fr; gap: 24px 18px; padding: 30px; align-content: start; }
 .launch-card h3 { align-self: center; font-size: 1.5rem; }
@@ -179,7 +180,7 @@ h1 { font-size: clamp(2.8rem, 4.55vw, 4.05rem); line-height: 1.02; margin-bottom
 .finance-intro p { color: var(--muted); }
 .finance-intro strong { color: var(--ink); }
 .table-title { margin-bottom: 20px; }
-.table-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; border-radius: 24px; scrollbar-color: #607f6c rgba(255,255,255,.4); }
+.table-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; --glass-radius: 24px; scrollbar-color: #607f6c rgba(255,255,255,.4); }
 table { width: 100%; min-width: 740px; border-collapse: separate; border-spacing: 0; font-size: 1rem; line-height: 1.5; font-variant-numeric: tabular-nums; }
 th, td { padding: 18px 25px; text-align: right; vertical-align: middle; border-bottom: 1px solid rgba(49,77,62,.13); }
 thead { background: rgba(22,25,28,.85); color: var(--paper); }
@@ -194,11 +195,11 @@ tbody tr:last-child > * { border-bottom: 0; }
 .finance-card h3 { color: #28583f; margin-bottom: 16px; }
 .finance-card p { font-size: 1rem; }
 .appendix-section { padding-block: 40px; }
-.divider-panel { min-height: 350px; display: flex; flex-direction: column; justify-content: center; padding: 70px; border-radius: 35px; }
+.divider-panel { min-height: 350px; display: flex; flex-direction: column; justify-content: center; padding: 70px; --glass-radius: 35px; }
 .divider-panel h2 { font-size: clamp(3rem,6.5vw,6rem); }
 .divider-panel p { margin-top: 20px; font-size: 1.4rem; }
 .steps { grid-template-columns: repeat(6,minmax(0,1fr)); gap: 14px; }
-.step { padding: 26px 19px; border-radius: 22px; }
+.step { padding: 26px 19px; --glass-radius: 22px; }
 .step.accent-card::before { width: 100%; margin-bottom: 22px; }
 .step.accent-card:nth-child(4)::before { background: var(--mint); }
 .step .card-label { font-size: .75rem; letter-spacing: .035em; color: var(--muted); margin-bottom: 20px; }
@@ -308,7 +309,7 @@ footer p { margin-left: auto; font-size: .75rem; color: var(--muted); letter-spa
   .section-subtitle.script { font-size: 1.9rem; }
   .grid-four, .comparison-grid, .steps { grid-template-columns: 1fr; }
   .grid-two, .grid-three, .grid-four, .steps { gap: 16px; }
-  .glass { border-radius: 24px; }
+  .glass { --glass-radius: 24px; }
   .funnel { gap: 30px; }
   .funnel-card { padding: 23px; }
   .funnel-card h3 { font-size: 1.3rem; }
@@ -316,7 +317,7 @@ footer p { margin-left: auto; font-size: .75rem; color: var(--muted); letter-spa
   .banner { padding: 25px; font-size: 1rem; }
   .banner strong { font-size: 1.45rem; }
   .comparison-grid { gap: 30px; }
-  .comparison-card, .comparison-result { min-height: 0; border-radius: 19px; }
+  .comparison-card, .comparison-result { min-height: 0; --glass-radius: 19px; }
   .column-label { margin-bottom: 14px; }
   .comparison-card dt { font-size: 1.3rem; }
   .comparison-card dd { margin-top: 8px; }
@@ -324,7 +325,7 @@ footer p { margin-left: auto; font-size: .75rem; color: var(--muted); letter-spa
   .application-card .example { padding-top: 24px; }
   .network-card, .reach-card, .stat-card, .trust-card { padding: 27px; }
   .network-card .card-title { font-size: 1.65rem; }
-  .network-metric { padding: 22px; border-radius: 18px; }
+  .network-metric { padding: 22px; --glass-radius: 18px; }
   .network-metric strong { font-size: 1.45rem; }
   .stats-grid .metric { font-size: 4.3rem; margin-bottom: 21px; }
   .stat-card .source { padding-top: 24px; }
