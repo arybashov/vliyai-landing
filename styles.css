@@ -1,4 +1,5 @@
 :root{--ink:#16191c;--paper:#f1f0e7;--acid:#d9ff4d;--mint:#4bd79a;--sky:#75b7ff;--muted:#515950;--display:'Inter Tight',Inter,Arial,sans-serif;--text:Inter,Arial,sans-serif;--script:'Inter Tight',Inter,Arial,sans-serif}
+:root { --dot-texture: radial-gradient(circle, rgba(22,25,28,.13) .8px, transparent 1px) 0 0 / 24px 24px; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 28px; }
@@ -19,7 +20,7 @@ section { position: relative; }
 .progress span { display: block; width: 0; height: 100%; background: linear-gradient(90deg, #789f16, var(--acid), var(--mint), var(--sky)); }
 
 /* The dot pattern follows the entire document, including the appendix. */
-.page-glow { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; background: radial-gradient(circle, rgba(22,25,28,.13) .8px, transparent 1px) 0 0 / 24px 24px; }
+.page-glow { position: absolute; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; background: var(--dot-texture); }
 .page-glow::before { content: ''; position: absolute; inset: 0 0 auto; height: 1100px; background: radial-gradient(ellipse at 84% 24%, rgba(217,255,77,.32), transparent 37%), radial-gradient(ellipse at 68% 48%, rgba(75,215,154,.14), transparent 43%), linear-gradient(90deg, var(--paper), transparent 85%); }
 
 .nav { position: relative; z-index: 20; max-width: 1364px; width: calc(100% - 28px); margin: 14px auto 0; padding: 16px 28px; display: flex; align-items: center; gap: 28px; border: 1px solid rgba(64,88,77,.3); border-radius: 999px; background: linear-gradient(135deg, rgba(255,255,255,.78), rgba(241,240,231,.66)); box-shadow: inset 0 1px 0 #fff, 0 7px 22px rgba(35,49,42,.1); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px) saturate(145%); }
@@ -62,7 +63,7 @@ h1 { font-size: clamp(2.8rem, 4.55vw, 4.05rem); line-height: 1.02; margin-bottom
 .portrait img { height: 100%; width: 100%; object-fit: cover; }
 .portrait::after { content: ''; position: absolute; inset: 7%; border: 1px dashed rgba(217,255,77,.8); border-radius: 50%; box-shadow: 0 0 0 18px rgba(217,255,77,.07); }
 .scan { position: absolute; inset: 12% 4% auto; height: 2px; background: linear-gradient(90deg,transparent,var(--acid),white,var(--acid),transparent); box-shadow: 0 0 18px 7px rgba(217,255,77,.3); animation: scan 6s ease-in-out infinite alternate; }
-.tag { position: absolute; z-index: 3; padding: 12px 16px; background: rgba(244,245,242,.82); border: 1px solid rgba(22,25,28,.15); border-radius: 999px; font-size: .8125rem; line-height: 1.4; font-weight: 600; box-shadow: 0 12px 34px rgba(32,48,25,.12); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); animation: float 6s ease-in-out infinite; }
+.tag { position: absolute; z-index: 3; padding: 12px 16px; background: radial-gradient(ellipse at 20% 0%, rgba(255,255,255,.55), transparent 65%), linear-gradient(135deg, rgba(255,255,255,.58), rgba(244,245,242,.38)); border: 1px solid #fff; border-radius: 999px; font-size: .8125rem; line-height: 1.4; font-weight: 600; box-shadow: inset 0 2px 1px rgba(255,255,255,.85), inset 0 -1px 2px rgba(53,109,119,.12), 0 0 0 .5px #fff, 0 12px 30px rgba(32,48,25,.18); -webkit-backdrop-filter: blur(14px) saturate(135%); backdrop-filter: blur(14px) saturate(135%); animation: float 6s ease-in-out infinite; }
 .tag-ad { right: 6%; top: 8%; }
 .tag-voice { left: -3%; top: 70%; animation-delay: -2s; }
 .marquee { overflow: hidden; background: var(--acid); border-block: 1px solid rgba(22,25,28,.15); transform: skewY(-1deg); box-shadow: 0 12px 28px rgba(74,96,24,.12); }
@@ -100,12 +101,14 @@ h1 { font-size: clamp(2.8rem, 4.55vw, 4.05rem); line-height: 1.02; margin-bottom
 .flow-process { --flow-angle: 145deg; --flow-inset: 0 -12px 2%; --flow-shape: 60% 20% 45% 30% / 25% 65% 25% 45%; }
 .flow-principles { --flow-angle: 45deg; --flow-inset: 0 -12px; --flow-shape: 20% 50% 65% 20% / 55% 20% 25% 60%; }
 .flow-trust { --flow-angle: 205deg; --flow-inset: 0 -12px 5%; --flow-shape: 50% 25% 20% 60% / 20% 60% 45% 25%; }
-.glass { position: relative; background: radial-gradient(ellipse at 5% 0%,rgba(255,255,255,.52),transparent 58%), rgba(255,255,255,.3); border: 1px solid rgba(255,255,255,.88); border-radius: 28px; box-shadow: inset 0 2px 1px rgba(255,255,255,.84), inset 1px 0 1px rgba(255,255,255,.6), inset -1px -2px 3px rgba(53,109,119,.13), 0 14px 32px rgba(45,78,71,.09); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px) saturate(135%); }
+/* Paint crisp dots above the blurred backdrop, beneath the original tint and
+   highlight. A gradient tint keeps the same opacity while covering the dots. */
+.glass { position: relative; background: radial-gradient(ellipse at 5% 0%,rgba(255,255,255,.52),transparent 58%), linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,.3)), var(--dot-texture); border: 1px solid rgba(255,255,255,.88); border-radius: 28px; box-shadow: inset 0 2px 1px rgba(255,255,255,.84), inset 1px 0 1px rgba(255,255,255,.6), inset -1px -2px 3px rgba(53,109,119,.13), 0 14px 32px rgba(45,78,71,.09); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px) saturate(135%); }
 .glass p, .glass dd { color: #3c514a; }
-.glass-dark { background: rgba(22,25,28,.84); color: var(--paper); border-color: rgba(255,255,255,.64); box-shadow: inset 0 1px 1px rgba(255,255,255,.22), 0 17px 34px rgba(22,25,28,.14); }
+.glass-dark { background: linear-gradient(rgba(22,25,28,.84),rgba(22,25,28,.84)), var(--dot-texture); color: var(--paper); border-color: rgba(255,255,255,.64); box-shadow: inset 0 1px 1px rgba(255,255,255,.22), 0 17px 34px rgba(22,25,28,.14); }
 .glass-dark p, .glass-dark .card-label { color: #dce5da; }
 .glass-dark strong { color: var(--acid); }
-.glass-dark .glass { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.18); }
+.glass-dark .glass { background: linear-gradient(rgba(255,255,255,.07),rgba(255,255,255,.07)), var(--dot-texture); border-color: rgba(255,255,255,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.18); }
 .glass-dark .glass p, .glass-dark p.glass { color: var(--paper); }
 .number { flex-shrink: 0; display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--mint); color: var(--ink); font-size: 1.125rem; font-weight: 700; }
 :nth-child(3n+2) > .number { background: var(--sky); }
