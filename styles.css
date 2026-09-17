@@ -41,7 +41,9 @@ section { position: relative; }
 .pov-label { display: flex; align-items: center; gap: 9px; font-size: .75rem; font-weight: 600; letter-spacing: .11em; color: var(--muted); margin-bottom: 17px; }
 .pov-label::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 5px rgba(75,215,154,.12); }
 h1 { font-size: clamp(2.8rem, 4.55vw, 4.05rem); line-height: 1.02; margin-bottom: 25px; }
-.script { font-family: var(--script); font-style: italic; font-weight: 700; letter-spacing: -.045em; color: #286345; }
+/* background-clip: text paints only inside the box, and the italic lean puts
+   the last glyph's ink up to .153em past it. Widest measured tail wins. */
+.script { font-family: var(--script); font-style: italic; font-weight: 700; letter-spacing: -.045em; color: #286345; padding-right: .18em; }
 @supports (background-clip: text) or (-webkit-background-clip: text) {
   .script { background: linear-gradient(103deg, #1c3c24 4%, #23794e 52%, #637b18 100%); background-clip: text; -webkit-background-clip: text; color: transparent; }
 }
@@ -104,8 +106,8 @@ h1 { font-size: clamp(2.8rem, 4.55vw, 4.05rem); line-height: 1.02; margin-bottom
 /* A subtle backdrop blur adds depth while keeping the colour ribbon readable
    through the translucent fill. The white edge, inner ring, highlights and
    shadow complete the glass effect. */
-.glass { --glass-radius: 28px; position: relative; background: radial-gradient(ellipse at 5% 0%,rgba(255,255,255,.52),transparent 58%), linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,.3)), var(--dot-texture); border: 2px solid #fff; border-radius: var(--glass-radius); box-shadow: inset 0 2px 1px rgba(255,255,255,.84), inset 1px 0 1px rgba(255,255,255,.6), 0 14px 32px rgba(45,78,71,.09); -webkit-backdrop-filter: blur(3px) saturate(135%); backdrop-filter: blur(3px) saturate(135%); }
-.glass::after { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(112,155,158,.28); border-radius: calc(var(--glass-radius) - 2px); pointer-events: none; }
+.glass { --glass-radius: 28px; position: relative; background: radial-gradient(ellipse at 5% 0%,rgba(255,255,255,.52),transparent 58%), linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,.3)), var(--dot-texture); border: 1px solid #fff; border-radius: var(--glass-radius); box-shadow: inset 0 2px 1px rgba(255,255,255,.84), inset 1px 0 1px rgba(255,255,255,.6), 0 14px 32px rgba(45,78,71,.09); -webkit-backdrop-filter: blur(3px) saturate(135%); backdrop-filter: blur(3px) saturate(135%); }
+.glass::after { content: ''; position: absolute; inset: 2px; border: 1px solid rgba(112,155,158,.28); border-radius: calc(var(--glass-radius) - 1px); pointer-events: none; }
 .glass p, .glass dd { color: #3c514a; }
 .glass-dark { background: linear-gradient(rgba(22,25,28,.84),rgba(22,25,28,.84)), var(--dot-texture); color: var(--paper); border-color: #fff; box-shadow: inset 0 1px 1px rgba(255,255,255,.22), 0 17px 34px rgba(22,25,28,.14); }
 .glass-dark p, .glass-dark .card-label { color: #dce5da; }
